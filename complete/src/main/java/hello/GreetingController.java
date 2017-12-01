@@ -29,6 +29,7 @@ public class GreetingController {
 	public Greeting join(HelloMessage message, SimpMessageHeaderAccessor headerAccessor) throws Exception {
 		User user = (User)headerAccessor.getSessionAttributes().get(headerAccessor.getSessionId());
 		User targetUser = user.getTargetUser();
+		Greeting[] greeting = new Greeting[0];
 		if(targetUser == null) {
 			Map<String, Object> sessionAttributes = headerAccessor.getSessionAttributes();
 			sessionAttributes.forEach((key,value)->{
@@ -40,12 +41,15 @@ public class GreetingController {
 							user.setTargetUser(u);
 							log.debug("user set correct{}", headerAccessor.getSessionAttributes().get(headerAccessor.getSessionId()));
 							u.setTargetUser(user);
+							greeting[0] = new Greeting(HttpStatus.OK.toString(), user);
 						}
 					}
 				}
 			});
 		}
-		return new Greeting(HttpStatus.OK.toString(), user);
+		if(greeting[0] == null)
+			greeting[0] = new Greeting(HttpStatus.OK.toString(), user);
+		return greeting[0];
 	}
 
 	@SendTo("/topic/matching")
