@@ -3,13 +3,6 @@ var stompClient = null;
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
-    if (connected) {
-        $("#conversation").show();
-    }
-    else {
-        $("#conversation").hide();
-    }
-    $("#greetings").html("");
 }
 
 function connect() {
@@ -18,12 +11,9 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-    });
-}
-
-function matching() {
-    stompClient.subscribe('/topic/greetings', function (greeting) {
-        showGreeting(JSON.parse(greeting.body).content);
+        stompClient.subscribe('/topic/chat', function (greeting) {
+            showChat(greeting);
+        });
     });
 }
 
@@ -40,11 +30,15 @@ function sendName() {
 }
 
 function sendChat() {
-    stompClient.send("/app/chat", {}, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send("/app/chat", {}, JSON.stringify({'message': $("#chatInput").val()}));
 }
 
 function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
+}
+function showChat(message) {
+    var msg = JSON.parse(message.body);
+    $("#chatting").append("<tr><td><span style='color:blueviolet;'>"+msg.user.username +"</span> &nbsp; " + msg.content + "</td></tr>");
 }
 
 $(function () {
@@ -54,5 +48,7 @@ $(function () {
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendName(); });
+    $("#btnChat").click(function(){sendChat();});
+
 });
 

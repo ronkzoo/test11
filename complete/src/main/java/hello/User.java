@@ -6,14 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-@ToString
+import java.io.Serializable;
+
+/**
+ * Created by rasset on 2017-12-01.
+ */
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class Greeting {
+@ToString
+@Slf4j
+public class User implements Serializable {
 
-    private String content;
-    private User  user;
-
+	private String id;
+	private String username;
 }

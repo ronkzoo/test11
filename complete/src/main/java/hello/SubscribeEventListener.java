@@ -23,14 +23,13 @@ public class SubscribeEventListener {
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
 		StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
 		String sessionId = sha.getSessionId();
-		log.debug("sessionId : ",sessionId);
+		log.debug("sessionId : {} ",sessionId);
 		log.debug(event.getSource().toString());
 		log.debug(event.toString());
 	}
 
 	@EventListener
 	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
-		StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
 		log.debug("eieieieiieieieieieiie20202030402034023040eeeoe");
 		log.debug("eieieieiieieieieieiie20202030402034023040eeeoe");
 		log.debug("eieieieiieieieieieiie20202030402034023040eeeoe");
