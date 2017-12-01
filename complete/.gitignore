@@ -1,2 +1,9 @@
 build
 target
+.mvn
+.gradle
+mvnw
+mvnw.cmd
+pom.xml
+gradle/
+
