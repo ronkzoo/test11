@@ -38,7 +38,6 @@ public class HttpHandshakeInterceptor implements HandshakeInterceptor {
 					log.debug("key {}, value{}",next.getKey() , next.getValue());
 				}
 			}
-			attributes.put("leeminuk","leemik");
 
 		}
 		return true;
