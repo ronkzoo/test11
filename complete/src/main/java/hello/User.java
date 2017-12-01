@@ -20,4 +20,5 @@ public class User implements Serializable {
 
 	private String id;
 	private String username;
+	private User targetUser;
 }
